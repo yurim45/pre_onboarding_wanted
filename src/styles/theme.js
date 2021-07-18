@@ -8,7 +8,8 @@ const size = {
 const theme = {
   newBlue: '#3266FF',
   fontGrey: '#333333',
-  fontLigntGrea: '#9C9C9C',
+  fontLigntGrey: '#9C9C9C',
+  borderLine: '#dddddd',
 
   // 반응형
   mobile: `(max-width: ${size.mobile})`,
