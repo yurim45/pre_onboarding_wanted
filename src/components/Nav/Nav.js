@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { flexSet } from '../../styles/Variable';
 import Logo from '../Logo';
@@ -23,7 +24,7 @@ export default function Nav() {
     <>
       <Header>
         <div className="wrap">
-          <Logo clickHandler={clickHandler} />
+          <Logo clickHandler={clickHandler} currentId={currentId} />
           <NavWrap>
             <ul>
               {HEADER_LIST?.map((el, idx) => {
@@ -38,7 +39,12 @@ export default function Nav() {
                       {el.name}
                     </li>
                   ) : (
-                    <li onClick={() => clickHandler(idx + 1)}>{el.name}</li>
+                    <li
+                      onMouseOver={overExploreContent}
+                      onClick={() => clickHandler(idx + 1)}
+                    >
+                      {el.name}
+                    </li>
                   )
                 ) : el.id === currentId ? (
                   <li
@@ -46,7 +52,7 @@ export default function Nav() {
                     onClick={() => clickHandler(idx + 1)}
                     className="selected"
                   >
-                    {el.name}
+                    <Link to={el.path}>{el.name}</Link>
                   </li>
                 ) : (
                   <li onClick={() => clickHandler(idx + 1)}>{el.name}</li>
@@ -64,11 +70,11 @@ export default function Nav() {
 
 const HEADER_LIST = [
   { id: 1, name: '탐색' },
-  { id: 2, name: '커리어 성장' },
-  { id: 3, name: '직군별 연봉' },
-  { id: 4, name: '이력서' },
-  { id: 5, name: '매치업' },
-  { id: 6, name: '프리랜서' },
+  { id: 2, name: '커리어 성장', path: '/events' },
+  { id: 3, name: '직군별 연봉', path: '/salary' },
+  { id: 4, name: '이력서', path: '/cv' },
+  { id: 5, name: '매치업', path: '/profile/matching' },
+  { id: 6, name: '프리랜서', path: '/gigs/experts' },
 ];
 
 const Header = styled.header`
@@ -85,11 +91,20 @@ const Header = styled.header`
     ${flexSet('space-between', 'center')};
     width: 88%;
     margin: auto;
+
+    @media ${({ theme }) => theme.mobile} {
+      height: 52px;
+    }
   }
 `;
 
 const NavWrap = styled.nav`
   ${flexSet('space-between', 'center')};
+
+  @media ${({ theme }) => theme.mobile} {
+    position: absolute;
+    left: 50px;
+  }
 
   ul {
     ${flexSet('space-between', 'center')};
@@ -105,10 +120,23 @@ const NavWrap = styled.nav`
       :hover {
         border-bottom: 2px solid ${({ theme }) => theme.borderLine};
       }
+
+      @media ${({ theme }) => theme.mobile} {
+        padding: 15px 10px;
+      }
     }
 
     .selected {
       border-bottom: 2px solid ${({ theme }) => theme.newBlue};
+    }
+
+    li:nth-child(3),
+    li:nth-child(4),
+    li:nth-child(5),
+    li:nth-child(6) {
+      @media ${({ theme }) => theme.mobile} {
+        display: none;
+      }
     }
   }
 `;

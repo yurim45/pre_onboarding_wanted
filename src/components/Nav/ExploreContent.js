@@ -54,6 +54,10 @@ const Section = styled.section`
   opacity: 0;
   transform: translateY(-350px);
   transition: all 400ms cubic-bezier(0.9, 0, 0.33, 1);
+
+  @media ${({ theme }) => theme.mobile} {
+    display: none;
+  }
 `;
 
 const ContainerWrap = styled.div`
